@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Athaneum - Library Management System</title>
+    <link rel="icon" href="profile-pic.jpg" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo-container">
+            <img src="logo.png" alt="Athaneum Logo">
+            <h1>Athaneum</h1>
+        </div>
+        
+        <div class="hamburger" id="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        
+        <div class="nav-links" id="nav-links">
+            <a href="../home/home.html">Home</a>
+        <a href="profile.html">Profile</a>
+        <a href="../wishlist/wishlist.html">Wishlist</a>
+        <a href="../collections/collections.html">Collections</a>
+        <a href="../aboutus/aboutus.html">About Us</a>
+        <a href="../contactus/contactus.html">Contact Us</a>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <div class="main-container">
+        <div class="content-wrapper">
+            <div class="credentials-card">
+                <h2 class="section-title">User Information</h2>
+                <div class="user-photo">
+                    <img src="pfp.jpg" alt="User Photo" id="profile-pic">
+                </div>
+                <div class="credentials-info">
+                    <p><strong>Name:</strong> <span id="user-name">Loading...</span></p>
+                    <p><strong>Email:</strong> <span id="user-email">Loading...</span></p>
+                    <p><strong>Member Since:</strong> <span id="user-since">Loading...</span></p>
+                </div>
+            </div>
+        
+            <!-- Left Section - Pie Chart -->
+            <div class="left-section">
+                <h2 class="section-title">Issued Books Tracker</h2>
+                <div class="pie-chart-container">
+                    <canvas id="pieChart" width="200" height="200"></canvas>
+                    <div class="chart-info">
+                        <p>You have issued <span id="issuedCount" style="font-weight: bold; color: var(--primary-color);">0</span> out of 5 books</p>
+                    </div>
+                    <div class="chart-legend">
+                        <div class="legend-item">
+                            <div class="legend-color issued"></div>
+                            <span>Issued</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color available"></div>
+                            <span>Available</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Section - Book Due Tracker -->
+            <div class="right-section">
+                
+                <h2 class="section-title">Book Due Tracker</h2>
+                <div class="chart-legend" style="margin-top: 20px;">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: var(--danger-color);"></div>
+                        <span>Overdue</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: var(--warning-color);"></div>
+                        <span>Due Soon</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: var(--primary-color);"></div>
+                        <span>Safe</span>
+                    </div>
+                </div>
+                
+                <div class="book-list" id="book-list">
+                    <!-- Book cards will be inserted here by JS -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="table-container">
+            <h2>History</h2>
+            <table id="feeTable">
+                <thead>
+                    <tr>
+                        <th>Book name</th>
+                        <th>Author</th>
+                        <th>Type</th>
+                        <th>Borrow Date</th>
+                        <th>Rating</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data rows will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Our Team</h3>
+                <p>Atharav, Vaishnav, Jenya, and Matin</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#terms">Terms and Conditions</a></li>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2025 Athaneum Library Management System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="profile.js"></script>
+</body>
+</html>
