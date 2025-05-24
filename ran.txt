@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Athaneum - Library Management System</title>
+    <link rel="icon" href="profile-pic.jpg" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary-color: #7494ec;
+            --warning-color: #f0ad4e;
+            --danger-color: #d9534f;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background-color: #f5f7ff;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--primary-color);
+            padding: 15px 30px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-container img {
+            height: 40px;
+            width: auto;
+            margin-right: 10px;
+        }
+
+        .logo-container h1 {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin: 0 15px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #e0e0e0;
+        }
+
+        .user-container {
+            position: relative;
+        }
+
+        .profile-pic {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid white;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: white;
+            box-shadow: var(--shadow);
+            border-radius: 5px;
+            width: 150px;
+            margin-top: 10px;
+            display: none;
+            z-index: 100;
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 10px 15px;
+            color: var(--dark-color);
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown a:hover {
+            background-color: #f5f5f5;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            height: 3px;
+            width: 25px;
+            background-color: white;
+            margin: 3px 0;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        /* Main Content */
+        .main-container {
+            margin-top: 80px;
+            padding: 30px;
+        }
+
+        .content-wrapper {
+            display: flex;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+
+        .left-section, .right-section {
+            flex: 1;
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .section-title {
+            color: var(--dark-color);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        /* Pie Chart Section */
+        .pie-chart-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 300px;
+        }
+
+        .chart-info {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .chart-info p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .chart-legend {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 0 10px;
+        }
+
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .issued {
+            background-color: var(--primary-color);
+        }
+
+        .available {
+            background-color: #e0e0e0;
+        }
+
+        /* Book Due Section */
+        .book-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .book-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid var(--primary-color);
+            background-color: #f9f9f9;
+            transition: transform 0.3s;
+        }
+
+        .book-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .book-card.warning {
+            border-left-color: var(--warning-color);
+        }
+
+        .book-card.danger {
+            border-left-color: var(--danger-color);
+        }
+
+        .book-title {
+            font-weight: 500;
+        }
+
+        .days-left {
+            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: white;
+            background-color: var(--primary-color);
+        }
+
+        .days-left.warning {
+            background-color: var(--warning-color);
+        }
+
+        .days-left.danger {
+            background-color: var(--danger-color);
+        }
+
+        /* Search Section */
+        .search-section {
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .search-container {
+            display: flex;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px;
+            padding-right: 50px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(116, 148, 236, 0.2);
+        }
+
+        .filter-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #777;
+            font-size: 1.2rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 30px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .social-icons a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .content-wrapper {
+                flex-direction: column;
+            }
+
+            .left-section, .right-section {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -300px;
+                height: calc(100vh - 70px);
+                width: 250px;
+                background-color: var(--primary-color);
+                flex-direction: column;
+                padding: 20px;
+                transition: left 0.3s ease;
+                box-shadow: var(--shadow);
+            }
+
+            .nav-active {
+                left: 0;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .dropdown {
+                left: auto;
+                right: 0;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo-container">
+            <img src="profile-pic.jpg" alt="Athaneum Logo">
+            <h1>Athaneum</h1>
+        </div>
+        
+        <div class="hamburger" id="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Library</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Community</a></li>
+        </ul>
+        
+        <div class="user-container">
+            <div class="profile-pic" id="profile-pic">
+                <img src="profile-pic.jpg" alt="User Profile">
+            </div>
+            <div class="dropdown" id="dropdown">
+                <a href="#">Settings</a>
+                <a href="#">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <div class="content-wrapper">
+            <!-- Left Section - Pie Chart -->
+            <div class="left-section">
+                <h2 class="section-title">Issued Books Tracker</h2>
+                <div class="pie-chart-container">
+                    <canvas id="pieChart" width="200" height="200"></canvas>
+                    <div class="chart-info">
+                        <p>You have issued <span id="issuedCount" style="font-weight: bold; color: var(--primary-color);">2</span> out of 3 books</p>
+                    </div>
+                    <div class="chart-legend">
+                        <div class="legend-item">
+                            <div class="legend-color issued"></div>
+                            <span>Issued</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color available"></div>
+                            <span>Available</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Section - Book Due Tracker -->
+            <div class="right-section">
+                <h2 class="section-title">Book Due Tracker</h2>
+                <div class="book-list" id="book-list">
+                    <!-- Book cards will be inserted here by JS -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Search Section -->
+        <div class="search-section">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search for books...">
+                <div class="filter-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="social-icons">
+                <span>Follow Us On:</span>
+                <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                    </svg>
+                </a>
+                <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                </a>
+                <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+                    </svg>
+                </a>
+            </div>
+            <div class="copyright">
+                © 2025 Athaneum. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle dropdown menu
+        const profilePic = document.getElementById('profile-pic');
+        const dropdown = document.getElementById('dropdown');
+        
+        profilePic.addEventListener('click', () => {
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!profilePic.contains(e.target) && !dropdown.contains(e.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
+        
+        // Toggle mobile menu
+        const hamburger = document.getElementById('hamburger-menu');
+        const navLinks = document.getElementById('nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('nav-active');
+            
+            // Animate hamburger
+            const spans = hamburger.querySelectorAll('span');
+            spans.forEach(span => span.classList.toggle('active'));
+        });
+        
+        // Sample data
+        const userBooks = { issued: 2 };
+        
+        const books = [
+            { title: "The Great Gatsby", daysLeft: 7 },
+            { title: "To Kill a Mockingbird", daysLeft: 3 },
+            { title: "1984", daysLeft: 0 }
+        ];
+        
+        // Render book cards
+        const bookList = document.getElementById('book-list');
+        
+        books.forEach(book => {
+            let statusClass = '';
+            
+            if (book.daysLeft <= 0) {
+                statusClass = 'danger';
+            } else if (book.daysLeft <= 5) {
+                statusClass = 'warning';
+            }
+            
+            const daysText = book.daysLeft <= 0 ? 'Overdue!' : `${book.daysLeft} days left`;
+            
+            const bookCard = document.createElement('div');
+            bookCard.className = `book-card ${statusClass}`;
+            bookCard.innerHTML = `
+                <span class="book-title">${book.title}</span>
+                <span class="days-left ${statusClass}">${daysText}</span>
+            `;
+            
+            bookList.appendChild(bookCard);
+        });
+        
+        // Draw pie chart
+        const pieChart = document.getElementById('pieChart');
+        const ctx = pieChart.getContext('2d');
+        const issuedCount = document.getElementById('issuedCount');
+        
+        issuedCount.textContent = userBooks.issued;
+        
+        function drawPieChart(issued, total) {
+            const centerX = pieChart.width / 2;
+            const centerY = pieChart.height / 2;
+            const radius = 80;
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, pieChart.width, pieChart.height);
+            
+            // Draw available portion (light gray)
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+            ctx.fillStyle = '#e0e0e0';
+            ctx.fill();
+            
+            // Draw issued portion
+            const issuedRatio = issued / total;
+            const endAngle = 2 * Math.PI * issuedRatio;
+            
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.arc(centerX, centerY, radius, 0, endAngle, false);
+            ctx.fillStyle = '#7494ec';
+            ctx.fill();
+            
+            // Draw inner circle (white hole)
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius * 0.6, 0, 2 * Math.PI, false);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+            
+            // Draw text in center
+            ctx.font = 'bold 30px Poppins';
+            ctx.fillStyle = '#343a40';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(`${issued}/${total}`, centerX, centerY);
+        }
+        
+        // Draw initial chart
+        drawPieChart(userBooks.issued, 3);
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        </style>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="login.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+</head>
+<body>
+    <div class="flex-container">
+        <div class="form-box login">
+            <form id="loginform" action="">
+                <h1>Login</h1>
+                <div class="input-box">
+                    <input type="email" id="email" placeholder="Enter E-mail Id">
+                    <i class='bx bxs-user'></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" id="password" placeholder="Enter Password" required><i class='bx bxs-lock-alt' ></i>
+                </div>
+
+                <div class="forgot-link">
+                    <a href="#">Forgot Password?</a>
+                </div>
+                <button type="submit" class="btn" onclick="handleLogin(event)">Proceed</button>
+                </div>
+            </form>
+        
+        <div class="toggle-box">
+            <h1>Library System</h1><br><br>
+                <img alt="Logo" src="logo.png"  width="250px">
+        </div>
+    <script src="login.js"></script>
+</body>
+</html>
