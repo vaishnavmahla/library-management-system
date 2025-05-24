@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Athaneum - Library Search</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="home.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <img src="logo.png" alt="Logo"> 
+      <h1>Athaneum</h1>
+    </div>
+    <nav>
+      <a href="home.html">Home</a>
+        <a href="../profile/profile.html">Profile</a>
+        <a href="../wishlist/wishlist.html">Wishlist</a>
+        <a href="../collections/collections.html">Collections</a>
+        <a href="../aboutus/aboutus.html">About Us</a>
+        <a href="../contactus/contactus.html">Contact Us</a>
+    </nav>
+    <!-- <div class="profile">
+      <span>Profile</span>
+      <img src="profile.jpg" alt="Profile">
+    </div> -->
+  </header>
+
+  <div class="search-container" >
+    <div class="search-bar">
+      <input type="text" id="search-input" placeholder="Search for books...">
+      <button class="filter-btn"><i class="fas fa-filter"></i></button>
+    </div>
+    <div class="search-results-container" id="search-results">
+      <div class="filter-options">
+        <label><input type="radio" name="filter" value="Book" checked> Name</label>
+        <label><input type="radio" name="filter" value="Author"> Author</label>
+        <label><input type="radio" name="filter" value="Type"> Type</label>
+      </div>
+      <div class="books-results" id="books-container"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Top Picks</h2>
+    <div class="book-slider" id="top-picks"></div>
+  </div>
+
+  <div class="section">
+    <h2>Trending Now</h2>
+    <div class="book-slider" id="weekly-best"></div>
+  </div>
+
+  <div class="section">
+    <h2>Reader's Choice</h2>
+    <div class="book-slider" id="readers-choice"></div>
+  </div>
+  
+  <div class="section">
+    <h2>New Arrivals</h2>
+    <div class="book-slider" id="new-arrivals"></div>
+  </div>
+  
+
+  <footer>
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3>Follow Us</h3>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+        
+        <div class="footer-section">
+            <h3>Our Team</h3>
+            <p>Atharav, Vaishnav, Jenya, and Matin</p>
+        </div>
+        
+        <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="#terms">Terms and Conditions</a></li>
+                <li><a href="#privacy">Privacy Policy</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="copyright">
+        <p>&copy; 2025 Athaneum Library Management System. All rights reserved.</p>
+    </div>
+</footer>
+
+  <script src="home.js"></script>
+</body>
+</html>
